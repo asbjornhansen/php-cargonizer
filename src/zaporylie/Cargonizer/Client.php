@@ -46,11 +46,9 @@ abstract class Client
     }
 
     /**
-     * @return mixed
-     *
      * @throws \Exception
      */
-    public function getResource()
+    public function getResource(): string
     {
         if ($this->resource === null) {
             throw new \Exception('Undefined resource');
@@ -62,7 +60,7 @@ abstract class Client
     /**
      * @throws \Exception
      */
-    public function getMetod()
+    public function getMetod(): string
     {
         if ($this->method === null) {
             throw new \Exception('Undefined method');
@@ -72,11 +70,9 @@ abstract class Client
     }
 
     /**
-     * @return mixed
-     *
      * @throws \Exception
      */
-    protected function request(array $headers = [], $data = null)
+    protected function request(array $headers = [], $data = null): \SimpleXMLElement|false
     {
         $headers += [
             'X-Cargonizer-Key' => Config::get('secret'),

@@ -16,7 +16,7 @@ class ConsignmentPrinter extends Client
     /**
      * Print a consignment.
      */
-    public function printConsigment($consignment_id, $printer_id)
+    public function printConsigment($consignment_id, $printer_id): \SimpleXMLElement|false
     {
         $this->resource = strtr($this->resourceTemplate, [
             '@consignment_id' => $consignment_id,

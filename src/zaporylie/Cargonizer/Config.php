@@ -30,7 +30,7 @@ class Config
         self::$config[$key] = $val;
     }
 
-    public static function get($key)
+    public static function get($key): mixed
     {
         return self::$config[$key];
     }

@@ -14,7 +14,7 @@ abstract class ObjectsWrapper implements \Iterator
     /**
      * {@inheritdoc}
      */
-    public function getIterator()
+    public function getIterator(): \ArrayIterator
     {
         return new \ArrayIterator($this->array);
     }
