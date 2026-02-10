@@ -9,9 +9,9 @@ namespace zaporylie\Cargonizer;
  */
 class ConsignmentPrinter extends Client
 {
-    protected $resourceTemplate = '/consignments/label_direct?consignment_ids[]=@consignment_id&printer_id=@printer_id';
+    protected string $resourceTemplate = '/consignments/label_direct?consignment_ids[]=@consignment_id&printer_id=@printer_id';
 
-    protected $method = 'POST';
+    protected string $method = 'POST';
 
     /**
      * Print a consignment.

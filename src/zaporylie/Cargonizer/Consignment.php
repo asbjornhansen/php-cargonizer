@@ -12,9 +12,9 @@ use zaporylie\Cargonizer\Data\ConsignmentsResponse;
  */
 class Consignment extends Client
 {
-    protected $resource = '/consignments.xml';
+    protected string $resource = '/consignments.xml';
 
-    protected $method = 'POST';
+    protected string $method = 'POST';
 
     public function createConsignments(Consignments $consignments): ConsignmentsResponse
     {

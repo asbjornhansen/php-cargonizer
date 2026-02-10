@@ -8,9 +8,9 @@ use zaporylie\Cargonizer\Data\User;
 
 class Profile extends Client
 {
-    protected $resource = '/profile.xml';
+    protected string $resource = '/profile.xml';
 
-    protected $method = 'GET';
+    protected string $method = 'GET';
 
     public function getProfile(): User
     {

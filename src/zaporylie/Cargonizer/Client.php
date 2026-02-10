@@ -16,9 +16,9 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 abstract class Client
 {
-    protected $resource;
+    protected string $resource;
 
-    protected $method;
+    protected string $method;
 
     /**
      * @var ClientInterface PSR-18 HTTP Client

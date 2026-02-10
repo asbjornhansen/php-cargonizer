@@ -8,9 +8,9 @@ use zaporylie\Cargonizer\Data\TransportAgreements;
 
 class Agreements extends Client
 {
-    protected $resource = '/transport_agreements.xml';
+    protected string $resource = '/transport_agreements.xml';
 
-    protected $method = 'GET';
+    protected string $method = 'GET';
 
     public function getAgreements(): TransportAgreements
     {

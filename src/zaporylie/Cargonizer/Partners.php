@@ -11,9 +11,9 @@ use zaporylie\Cargonizer\Data\Results;
  */
 class Partners extends Client
 {
-    protected $resource = '/service_partners.xml';
+    protected string $resource = '/service_partners.xml';
 
-    protected $method = 'GET';
+    protected string $method = 'GET';
 
     /**
      * @param  string  $country

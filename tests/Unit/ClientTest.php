@@ -17,9 +17,9 @@ beforeEach(function (): void {
 // Create a concrete implementation for testing abstract Client
 class TestClient extends Client
 {
-    protected $resource = '/test.xml';
+    protected string $resource = '/test.xml';
 
-    protected $method = 'GET';
+    protected string $method = 'GET';
 
     public function makeRequest(array $headers = [], $data = null): \SimpleXMLElement|false
     {

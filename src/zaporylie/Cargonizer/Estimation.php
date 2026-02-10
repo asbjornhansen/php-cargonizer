@@ -11,9 +11,9 @@ use zaporylie\Cargonizer\Data\Consignments;
  */
 class Estimation extends Client
 {
-    protected $resource = '/consignment_costs.xml';
+    protected string $resource = '/consignment_costs.xml';
 
-    protected $method = 'POST';
+    protected string $method = 'POST';
 
     public function getEstimation(Consignments $consignments): \zaporylie\Cargonizer\Data\Estimation
     {
