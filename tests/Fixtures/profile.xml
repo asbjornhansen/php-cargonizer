@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+    <id type="integer">999</id>
+    <email>test@example.com</email>
+    <name>Test User</name>
+    <company>Test Company</company>
+    <address>Test Address 123</address>
+    <postcode>0150</postcode>
+    <city>Oslo</city>
+    <country>NO</country>
+</user>

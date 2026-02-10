@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transport-agreement>
+    <id type="integer">123</id>
+    <description>Test Agreement</description>
+    <carrier>
+        <name>Bring</name>
+        <identifier>bring</identifier>
+    </carrier>
+    <products type="array">
+        <product>
+            <identifier>pakke_i_postkassen</identifier>
+            <name>Pakke i postkassen</name>
+        </product>
+    </products>
+</transport-agreement>

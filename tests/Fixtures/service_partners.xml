@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <location>
+        <country>NO</country>
+        <postcode>0150</postcode>
+        <city>Oslo</city>
+    </location>
+    <service-partners type="array">
+        <service-partner>
+            <name>Test Partner 1</name>
+            <address>Test Street 123</address>
+            <postcode>0150</postcode>
+            <city>Oslo</city>
+            <country>NO</country>
+            <latitude type="float">59.9139</latitude>
+            <longitude type="float">10.7522</longitude>
+            <partner-number>12345</partner-number>
+        </service-partner>
+        <service-partner>
+            <name>Test Partner 2</name>
+            <address>Another Street 456</address>
+            <postcode>0150</postcode>
+            <city>Oslo</city>
+            <country>NO</country>
+            <latitude type="float">59.9200</latitude>
+            <longitude type="float">10.7600</longitude>
+            <partner-number>67890</partner-number>
+        </service-partner>
+    </service-partners>
+</results>

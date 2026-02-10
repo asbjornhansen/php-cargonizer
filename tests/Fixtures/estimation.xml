@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<estimation>
+    <cost type="float">125.50</cost>
+    <currency>NOK</currency>
+    <product>
+        <identifier>pakke_i_postkassen</identifier>
+        <name>Pakke i postkassen</name>
+    </product>
+    <carrier>
+        <name>Bring</name>
+        <identifier>bring</identifier>
+    </carrier>
+</estimation>

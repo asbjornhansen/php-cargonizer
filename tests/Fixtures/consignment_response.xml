@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<consignments type="array">
+    <consignment>
+        <id type="integer">789</id>
+        <number>TEST123456789</number>
+        <status>created</status>
+        <product>
+            <identifier>pakke_i_postkassen</identifier>
+            <name>Pakke i postkassen</name>
+        </product>
+        <items type="array">
+            <item>
+                <id type="integer">1001</id>
+                <description>Test Item</description>
+                <amount type="integer">1</amount>
+                <weight type="float">1.5</weight>
+            </item>
+        </items>
+        <transport-agreement>
+            <id type="integer">123</id>
+        </transport-agreement>
+    </consignment>
+</consignments>
