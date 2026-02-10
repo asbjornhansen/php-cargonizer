@@ -1,44 +1,76 @@
 name: Test
 on:
-  - push
-  - pull_request
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   test:
     name: Run tests
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.3', '7.4', '8.0', '8.1', '8.2']
-        composer-channel: [ 'stable' ]
+        php-versions: ['8.3', '8.4', '8.5']
     steps:
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-
-      - name: Update composer
-        run: composer --verbose self-update --${{ matrix.composer-channel }}
-
-      - name: Dump composer verson
-        run: composer --version
+          tools: composer:v2
+          coverage: none
 
       - name: Validate composer.json
-        run: composer --verbose validate
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
       - name: Install dependencies
-        run: composer --verbose install
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run code style check
+        run: composer pint
+
+      - name: Run static analysis
+        run: composer rector
 
       - name: Run tests
-        run: ./vendor/bin/phpunit
+        run: composer test
 
+  qa:
+    name: Quality Assurance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+          coverage: none
+
+      - name: Cache Composer packages
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run QA suite
+        run: composer qa
