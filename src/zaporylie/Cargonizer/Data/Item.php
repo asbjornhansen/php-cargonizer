@@ -48,6 +48,8 @@ class Item implements SerializableDataInterface
      */
     protected ?string $description = null;
 
+    protected ?DangerousGoods $dangerousGoods = null;
+
     public function setDescription(?string $description): self
     {
         $this->description = $description;
@@ -156,6 +158,18 @@ class Item implements SerializableDataInterface
         return $this->width;
     }
 
+    public function getDangerousGoods(): ?DangerousGoods
+    {
+        return $this->dangerousGoods;
+    }
+
+    public function setDangerousGoods(?DangerousGoods $dangerousGoods): self
+    {
+        $this->dangerousGoods = $dangerousGoods;
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -176,6 +190,7 @@ class Item implements SerializableDataInterface
         $item->addAttribute('amount', (string) ($this->getAmount() ?? ''));
         $item->addAttribute('weight', (string) ($this->getWeight() ?? ''));
         $item->addAttribute('description', $this->getDescription() ?? '');
+        $this->getDangerousGoods()?->toXML($item);
 
         return $xml;
     }

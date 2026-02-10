@@ -30,6 +30,8 @@ class Consignment implements SerializableDataInterface
 
     protected ?string $message = null;
 
+    protected ?Tod $tod = null;
+
     public function getTransfer(): bool|string|null
     {
         return $this->transfer;
@@ -177,6 +179,18 @@ class Consignment implements SerializableDataInterface
         return $this->references;
     }
 
+    public function getTod(): ?Tod
+    {
+        return $this->tod;
+    }
+
+    public function setTod(?Tod $tod): self
+    {
+        $this->tod = $tod;
+
+        return $this;
+    }
+
     #[\Override]
     public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement
     {
@@ -214,6 +228,8 @@ class Consignment implements SerializableDataInterface
             $service_el = $services->addChild('service');
             $service_el->addAttribute('id', (string) $service);
         }
+
+        $this->getTod()?->toXML($consignment);
 
         return $xml;
     }
