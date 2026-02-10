@@ -1,115 +1,97 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
 /**
  * Class Location
- *
- * @package zaporylie\Cargonizer\Data
  */
-class Location implements SerializableDataInterface {
+class Location implements SerializableDataInterface
+{
+    protected ?int $id = null;
 
-  /**
-   * @var int
-   */
-  protected ?int $id = null;
+    protected ?string $postcode = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $postcode = null;
+    protected ?string $city = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $city = null;
+    protected ?string $country = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $country = null;
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
 
-  /**
-   * @return string
-   */
-  public function getCity(): ?string {
-    return $this->city;
-  }
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
 
-  /**
-   * @return string
-   */
-  public function getCountry(): ?string {
-    return $this->country;
-  }
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
 
-  /**
-   * @return string
-   */
-  public function getPostcode(): ?string {
-    return $this->postcode;
-  }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-  /**
-   * @return int
-   */
-  public function getId(): ?int {
-    return $this->id;
-  }
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
-  /**
-   * @param string $city
-   */
-  public function setCity(?string $city): self {
-    $this->city = $city;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param string $country
-   */
-  public function setCountry(?string $country): self {
-    $this->country = $country;
-    return $this;
-  }
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
 
-  /**
-   * @param string $postcode
-   */
-  public function setPostcode(?string $postcode): self {
-    $this->postcode = $postcode;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param int $id
-   */
-  public function setId(?int $id): self {
-    $this->id = $id;
-    return $this;
-  }
+    public function setPostcode(?string $postcode): self
+    {
+        $this->postcode = $postcode;
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $location = new Location();
-    $location->setCity((string) $xml->city);
-    $location->setPostcode((string) $xml->postcode);
-    $location->setCountry((string) $xml->country);
-    $location->setId((int) $xml->id);
-    return $location;
-  }
+        return $this;
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
-    $location = $xml->addChild('location');
-    $location->addChild('id', (string)($this->getId() ?? ''));
-    $location->addChild('postcode', $this->getPostcode() ?? '');
-    $location->addChild('city', $this->getCity() ?? '');
-    $location->addChild('country', $this->getCountry() ?? '');
-    return $xml;
-  }
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        $location = new Location;
+        $location->setCity((string) $xml->city);
+        $location->setPostcode((string) $xml->postcode);
+        $location->setCountry((string) $xml->country);
+        $location->setId((int) $xml->id);
+
+        return $location;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement
+    {
+        $location = $xml->addChild('location');
+        $location->addChild('id', (string) ($this->getId() ?? ''));
+        $location->addChild('postcode', $this->getPostcode() ?? '');
+        $location->addChild('city', $this->getCity() ?? '');
+        $location->addChild('country', $this->getCountry() ?? '');
+
+        return $xml;
+    }
 }

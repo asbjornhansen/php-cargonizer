@@ -1,25 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
 /**
  * Interface SerializableDataInterface
- *
- * @package zaporylie\Consignor\Data
  */
-interface SerializableDataInterface {
+interface SerializableDataInterface
+{
+    public static function fromXML(\SimpleXMLElement $xml): self;
 
-  /**
-   * @param \SimpleXMLElement $xml
-   *
-   * @return self
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self;
-
-  /**
-   * @param \SimpleXMLElement
-   *
-   * @return \SimpleXMLElement
-   */
-  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement;
+    /**
+     * @param \SimpleXMLElement
+     */
+    public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement;
 }

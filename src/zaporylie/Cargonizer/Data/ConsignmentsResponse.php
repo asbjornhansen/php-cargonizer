@@ -1,48 +1,50 @@
 <?php
 
-namespace zaporylie\Cargonizer\Data;
+declare(strict_types=1);
 
-use zaporylie\Cargonizer\Data\SerializableDataInterface;
+namespace zaporylie\Cargonizer\Data;
 
 /**
  * Class Consignments.
- *
- * @package zaporylie\Cargonizer\Data
  */
-class ConsignmentsResponse extends ObjectsWrapper implements SerializableDataInterface {
+class ConsignmentsResponse extends ObjectsWrapper implements SerializableDataInterface
+{
+    public function addItem(ConsignmentResponse $consignmentResponse): self
+    {
+        $this->array[] = $consignmentResponse;
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\ConsignmentResponse $item
-   *
-   * @return self
-   */
-  public function addItem(ConsignmentResponse $item): self {
-    $this->array[] = $item;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $consignments = new ConsignmentsResponse();
-    /** @var \SimpleXMLElement $consignment */
-    foreach ($xml as $consignment) {
-      $consignments->addItem(ConsignmentResponse::fromXML($consignment));
-    }
-    return $consignments;
-  }
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        $consignmentsResponse = new ConsignmentsResponse;
+        /** @var \SimpleXMLElement $consignment */
+        foreach ($xml as $consignment) {
+            $consignmentsResponse->addItem(ConsignmentResponse::fromXML($consignment));
+        }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
-    if ($xml === null) {
-      $xml = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><consignments></consignments>");
+        return $consignmentsResponse;
     }
-    foreach ($this as $consignment) {
-      $consignment->toXML($xml);
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement
+    {
+        if (! $xml instanceof \SimpleXMLElement) {
+            $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><consignments></consignments>');
+        }
+
+        foreach ($this as $consignment) {
+            $consignment->toXML($xml);
+        }
+
+        return $xml;
     }
-    return $xml;
-  }
 }

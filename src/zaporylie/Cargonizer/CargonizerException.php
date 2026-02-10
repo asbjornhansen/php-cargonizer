@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer;
 
 use Psr\Http\Client\ClientExceptionInterface;
@@ -7,16 +9,13 @@ use Psr\Http\Message\RequestInterface;
 
 class CargonizerException extends \RuntimeException implements ClientExceptionInterface
 {
-    private ?RequestInterface $request;
-
     public function __construct(
         string $message,
-        ?RequestInterface $request = null,
+        private readonly ?RequestInterface $request = null,
         int $code = 0,
-        ?\Throwable $previous = null
+        ?\Throwable $throwable = null
     ) {
-        parent::__construct($message, $code, $previous);
-        $this->request = $request;
+        parent::__construct($message, $code, $throwable);
     }
 
     public function getRequest(): ?RequestInterface

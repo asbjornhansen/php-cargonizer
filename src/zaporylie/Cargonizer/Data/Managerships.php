@@ -1,43 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
-class Managerships extends ObjectsWrapper implements SerializableDataInterface {
+class Managerships extends ObjectsWrapper implements SerializableDataInterface
+{
+    public function addItem(Managership $managership): self
+    {
+        $this->array[$managership->getId()] = $managership;
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Managership $item
-   *
-   * @return self
-   */
-  public function addItem(Managership $item): self {
-    $this->array[$item->getId()] = $item;
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $managerships = new Managerships();
-
-    /** @var \SimpleXMLElement $agreement */
-    foreach ($xml as $managership) {
-      $managerships->addItem(Managership::fromXML($managership->{'managership'}));
+        return $this;
     }
 
-    return $managerships;
-  }
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        $managerships = new Managerships;
 
-  /**
-   * {@inheritdoc}
-   */
-  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
-    $partners = $xml->addChild('managerships');
-    $partners->addAttribute('type', 'array');
-    /** @var \zaporylie\Cargonizer\Data\Managership $managership */
-    foreach ($this as $managership) {
-      $managership->toXML($xml);
+        foreach ($xml as $managership) {
+            $managerships->addItem(Managership::fromXML($managership->{'managership'}));
+        }
+
+        return $managerships;
     }
-    return $xml;
-  }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement
+    {
+        $partners = $xml->addChild('managerships');
+        $partners->addAttribute('type', 'array');
+        /** @var Managership $managership */
+        foreach ($this as $managership) {
+            $managership->toXML($xml);
+        }
+
+        return $xml;
+    }
 }

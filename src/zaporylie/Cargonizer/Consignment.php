@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer;
 
 use zaporylie\Cargonizer\Data\Consignments;
@@ -7,34 +9,26 @@ use zaporylie\Cargonizer\Data\ConsignmentsResponse;
 
 /**
  * Class Consigment
- *
- * @package zaporylie\Cargonizer
  */
-class Consignment extends Client {
+class Consignment extends Client
+{
+    protected $resource = '/consignments.xml';
 
-  protected $resource = '/consignments.xml';
-  protected $method = 'POST';
+    protected $method = 'POST';
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Consignments $consignments
-   *
-   * @return \zaporylie\Cargonizer\Data\ConsignmentsResponse
-   */
-  public function createConsignments(Consignments $consignments) {
-    $xml = $consignments->toXML();
-    $response_xml = $this->request([], $xml->asXML());
-    return ConsignmentsResponse::fromXML($response_xml);
-  }
+    public function createConsignments(Consignments $consignments): ConsignmentsResponse
+    {
+        $xml = $consignments->toXML();
+        $response_xml = $this->request([], $xml->asXML());
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Consignments $consignments
-   *
-   * @return \zaporylie\Cargonizer\Data\ConsignmentsResponse
-   *
-   * @deprecated The name was misleading. Use createConsignments instead.
-   */
-  public function requestConsigment(Consignments $consignments) {
-    return $this->createConsignments($consignments);
-  }
+        return ConsignmentsResponse::fromXML($response_xml);
+    }
 
+    /**
+     * @deprecated The name was misleading. Use createConsignments instead.
+     */
+    public function requestConsigment(Consignments $consignments): ConsignmentsResponse
+    {
+        return $this->createConsignments($consignments);
+    }
 }

@@ -1,224 +1,182 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
-class Item implements SerializableDataInterface {
+class Item implements SerializableDataInterface
+{
+    protected ?string $package = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $package = null;
+    /**
+     * Required. Amount of parcels.
+     */
+    protected ?int $amount = null;
 
-  /**
-   * Required. Amount of parcels.
-   *
-   * @var int
-   */
-  protected ?int $amount = null;
+    /**
+     * Required.
+     */
+    protected ?float $weight = null;
 
-  /**
-   * Required.
-   *
-   * @var float
-   */
-  protected ?float $weight = null;
+    /**
+     * Required.
+     */
+    protected ?float $volume = null;
 
-  /**
-   * Required.
-   *
-   * @var float
-   */
-  protected ?float $volume = null;
+    /**
+     * Optional.
+     */
+    protected ?float $length = null;
 
-  /**
-   * Optional.
-   *
-   * @var float
-   */
-  protected ?float $length = null;
+    /**
+     * Optional.
+     */
+    protected ?float $height = null;
 
-  /**
-   * Optional.
-   *
-   * @var float
-   */
-  protected ?float $height = null;
+    /**
+     * Optional.
+     */
+    protected ?float $width = null;
 
-  /**
-   * Optional.
-   *
-   * @var float
-   */
-  protected ?float $width = null;
+    /**
+     * Optional.
+     */
+    protected ?float $loadMeter = null;
 
-  /**
-   * Optional.
-   *
-   * @var float
-   */
-  protected ?float $loadMeter = null;
+    /**
+     * Optional.
+     */
+    protected ?string $description = null;
 
-  /**
-   * Optional.
-   *
-   * @var string
-   */
-  protected ?string $description = null;
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
-  /**
-   * @param string $description
-   */
-  public function setDescription(?string $description): self {
-    $this->description = $description;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param int $amount
-   */
-  public function setAmount(?int $amount): self {
-    $this->amount = $amount;
-    return $this;
-  }
+    public function setAmount(?int $amount): self
+    {
+        $this->amount = $amount;
 
-  /**
-   * @param float $height
-   */
-  public function setHeight(?float $height): self {
-    $this->height = $height;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param float $length
-   */
-  public function setLength(?float $length): self {
-    $this->length = $length;
-    return $this;
-  }
+    public function setHeight(?float $height): self
+    {
+        $this->height = $height;
 
-  /**
-   * @param float $loadMeter
-   */
-  public function setLoadMeter(?float $loadMeter): self {
-    $this->loadMeter = $loadMeter;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param string $package
-   */
-  public function setPackage(?string $package): self {
-    $this->package = $package;
-    return $this;
-  }
+    public function setLength(?float $length): self
+    {
+        $this->length = $length;
 
-  /**
-   * @param float $volume
-   */
-  public function setVolume(?float $volume): self {
-    $this->volume = $volume;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param float $weight
-   */
-  public function setWeight(?float $weight): self {
-    $this->weight = $weight;
-    return $this;
-  }
+    public function setLoadMeter(?float $loadMeter): self
+    {
+        $this->loadMeter = $loadMeter;
 
-  /**
-   * @param float $width
-   */
-  public function setWidth(?float $width): self {
-    $this->width = $width;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getDescription(): ?string {
-    return $this->description;
-  }
+    public function setPackage(?string $package): self
+    {
+        $this->package = $package;
 
-  /**
-   * @return int
-   */
-  public function getAmount(): ?int {
-    return $this->amount;
-  }
+        return $this;
+    }
 
-  /**
-   * @return float
-   */
-  public function getHeight(): ?float {
-    return $this->height;
-  }
+    public function setVolume(?float $volume): self
+    {
+        $this->volume = $volume;
 
-  /**
-   * @return float
-   */
-  public function getLength(): ?float {
-    return $this->length;
-  }
+        return $this;
+    }
 
-  /**
-   * @return float
-   */
-  public function getLoadMeter(): ?float {
-    return $this->loadMeter;
-  }
+    public function setWeight(?float $weight): self
+    {
+        $this->weight = $weight;
 
-  /**
-   * @return string
-   */
-  public function getPackage(): ?string {
-    return $this->package;
-  }
+        return $this;
+    }
 
-  /**
-   * @return float
-   */
-  public function getVolume(): ?float {
-    return $this->volume;
-  }
+    public function setWidth(?float $width): self
+    {
+        $this->width = $width;
 
-  /**
-   * @return float
-   */
-  public function getWeight(): ?float {
-    return $this->weight;
-  }
+        return $this;
+    }
 
-  /**
-   * @return float
-   */
-  public function getWidth(): ?float {
-    return $this->width;
-  }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $item = new Item();
-    return $item;
-  }
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
 
+    public function getHeight(): ?float
+    {
+        return $this->height;
+    }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
-    $item = $xml->addChild('item');
-    $item->addAttribute('type', $this->getPackage() ?? '');
-    $item->addAttribute('amount', (string)($this->getAmount() ?? ''));
-    $item->addAttribute('weight', (string)($this->getWeight() ?? ''));
-    $item->addAttribute('description', $this->getDescription() ?? '');
+    public function getLength(): ?float
+    {
+        return $this->length;
+    }
 
-    return $xml;
-  }
+    public function getLoadMeter(): ?float
+    {
+        return $this->loadMeter;
+    }
+
+    public function getPackage(): ?string
+    {
+        return $this->package;
+    }
+
+    public function getVolume(): ?float
+    {
+        return $this->volume;
+    }
+
+    public function getWeight(): ?float
+    {
+        return $this->weight;
+    }
+
+    public function getWidth(): ?float
+    {
+        return $this->width;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        return new Item;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement
+    {
+        $item = $xml->addChild('item');
+        $item->addAttribute('type', $this->getPackage() ?? '');
+        $item->addAttribute('amount', (string) ($this->getAmount() ?? ''));
+        $item->addAttribute('weight', (string) ($this->getWeight() ?? ''));
+        $item->addAttribute('description', $this->getDescription() ?? '');
+
+        return $xml;
+    }
 }

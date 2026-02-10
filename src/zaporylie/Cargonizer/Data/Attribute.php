@@ -1,164 +1,127 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
-class Attribute implements SerializableDataInterface {
+class Attribute implements SerializableDataInterface
+{
+    protected ?string $identifier = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $identifier = null;
+    protected ?string $name = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $name = null;
+    protected ?string $type = null;
 
-  /**
-   * @var string
-   */
-  protected ?string $type = null;
+    protected ?bool $required = null;
 
-  /**
-   * @var bool
-   */
-  protected ?bool $required = null;
+    protected ?int $min = null;
 
-  /**
-   * @var int
-   */
-  protected ?int $min = null;
+    protected ?int $max = null;
 
-  /**
-   * @var int
-   */
-  protected ?int $max = null;
+    protected ?array $values = null;
 
-  /**
-   * @var null|array
-   */
-  protected ?array $values = null;
+    public function setIdentifier(?string $identifier): self
+    {
+        $this->identifier = $identifier;
 
-  /**
-   * @param string $identifier
-   */
-  public function setIdentifier(?string $identifier): self {
-    $this->identifier = $identifier;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param string $name
-   */
-  public function setName(?string $name): self {
-    $this->name = $name;
-    return $this;
-  }
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
-  /**
-   * @param int $min
-   */
-  public function setMin(?int $min): self {
-    $this->min = $min;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param int $max
-   */
-  public function setMax(?int $max): self {
-    $this->max = $max;
-    return $this;
-  }
+    public function setMin(?int $min): self
+    {
+        $this->min = $min;
 
-  /**
-   * @param bool $required
-   */
-  public function setRequired(?bool $required): self {
-    $this->required = $required;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @param string $type
-   */
-  public function setType(?string $type): self {
-    $this->type = $type;
-    return $this;
-  }
+    public function setMax(?int $max): self
+    {
+        $this->max = $max;
 
-  /**
-   * @param array $values
-   */
-  public function setValues(?array $values): self {
-    $this->values = $values;
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getIdentifier(): ?string {
-    return $this->identifier;
-  }
+    public function setRequired(?bool $required): self
+    {
+        $this->required = $required;
 
-  /**
-   * @return string
-   */
-  public function getName(): ?string {
-    return $this->name;
-  }
+        return $this;
+    }
 
-  /**
-   * @return int
-   */
-  public function getMax(): ?int {
-    return $this->max;
-  }
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
 
-  /**
-   * @return int
-   */
-  public function getMin(): ?int {
-    return $this->min;
-  }
+        return $this;
+    }
 
-  /**
-   * @return string
-   */
-  public function getType(): ?string {
-    return $this->type;
-  }
+    public function setValues(?array $values): self
+    {
+        $this->values = $values;
 
-  /**
-   * @return array|null
-   */
-  public function getValues(): ?array {
-    return $this->values;
-  }
+        return $this;
+    }
 
-  /**
-   * @param \SimpleXMLElement $xml
-   *
-   * @return \zaporylie\Cargonizer\Data\Attribute
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $attribute = new Attribute();
-    $attribute->setIdentifier((string) $xml->identifier);
-    $attribute->setName((string) $xml->name);
-    $attribute->setType((string) $xml->type);
-    $attribute->setRequired((string) $xml->required === 'true');
-    $attribute->setMin((int) $xml->min);
-    $attribute->setMax((int) $xml->max);
-    return $attribute;
-  }
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
 
-  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
-    $attribute = $xml->addChild('attribute');
-    $attribute->addChild('identifier', $this->getIdentifier() ?? '');
-    $attribute->addChild('name', $this->getName() ?? '');
-    $attribute->addChild('min', (string)($this->getMin() ?? ''));
-    $attribute->addChild('max', (string)($this->getMax() ?? ''));
-    return $xml;
-  }
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function getMax(): ?int
+    {
+        return $this->max;
+    }
+
+    public function getMin(): ?int
+    {
+        return $this->min;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function getValues(): ?array
+    {
+        return $this->values;
+    }
+
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        $attribute = new Attribute;
+        $attribute->setIdentifier((string) $xml->identifier);
+        $attribute->setName((string) $xml->name);
+        $attribute->setType((string) $xml->type);
+        $attribute->setRequired((string) $xml->required === 'true');
+        $attribute->setMin((int) $xml->min);
+        $attribute->setMax((int) $xml->max);
+
+        return $attribute;
+    }
+
+    #[\Override]
+    public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement
+    {
+        $attribute = $xml->addChild('attribute');
+        $attribute->addChild('identifier', $this->getIdentifier() ?? '');
+        $attribute->addChild('name', $this->getName() ?? '');
+        $attribute->addChild('min', (string) ($this->getMin() ?? ''));
+        $attribute->addChild('max', (string) ($this->getMax() ?? ''));
+
+        return $xml;
+    }
 }

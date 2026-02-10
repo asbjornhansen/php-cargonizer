@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Composer scripts.
  *
@@ -13,26 +15,24 @@ use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class ScriptHandler
- * @package Cargonizer
  */
 class ScriptHandler
 {
-
-  /**
-   * Generate dummy yaml.
-   */
-  public static function createExamplesConfigFile()
-  {
-    $fs = new Filesystem();
-    $root = __DIR__ . '/../../../examples/';
-    if (!$fs->exists($root . 'config.yml')) {
-      $settings = [
-        'endpoint' => '',
-        'secret' => '',
-        'sender' => '',
-      ];
-      $content = Yaml::dump($settings);
-      $fs->dumpFile($root . 'config.yml', $content);
+    /**
+     * Generate dummy yaml.
+     */
+    public static function createExamplesConfigFile(): void
+    {
+        $filesystem = new Filesystem;
+        $root = __DIR__.'/../../../examples/';
+        if (! $filesystem->exists($root.'config.yml')) {
+            $settings = [
+                'endpoint' => '',
+                'secret' => '',
+                'sender' => '',
+            ];
+            $content = Yaml::dump($settings);
+            $filesystem->dumpFile($root.'config.yml', $content);
+        }
     }
-  }
 }

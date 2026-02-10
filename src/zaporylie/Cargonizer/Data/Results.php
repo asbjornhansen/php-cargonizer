@@ -1,79 +1,71 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
-class Results implements SerializableDataInterface {
+class Results implements SerializableDataInterface
+{
+    protected ?Location $location = null;
 
+    protected ?ServicePartners $servicePartners = null;
 
-  /**
-   * @var \zaporylie\Cargonizer\Data\Location
-   */
-  protected ?Location $location = null;
+    public function setLocation(?Location $location): self
+    {
+        $this->location = $location;
 
-  /**
-   * @var \zaporylie\Cargonizer\Data\ServicePartners
-   */
-  protected ?ServicePartners $servicePartners = null;
-
-  /**
-   * @param \zaporylie\Cargonizer\Data\Location $location
-   */
-  public function setLocation(?Location $location): self {
-    $this->location = $location;
-    return $this;
-  }
-
-  /**
-   * @param \zaporylie\Cargonizer\Data\ServicePartners $servicePartners
-   */
-  public function setServicePartners(?ServicePartners $servicePartners): self {
-    $this->servicePartners = $servicePartners;
-    return $this;
-  }
-
-  /**
-   * @return \zaporylie\Cargonizer\Data\Location
-   */
-  public function getLocation(): ?Location {
-    return $this->location;
-  }
-
-  /**
-   * @return \zaporylie\Cargonizer\Data\ServicePartners
-   */
-  public function getServicePartners(): ?ServicePartners {
-    return $this->servicePartners;
-  }
-
-  /**
-   * @param \SimpleXMLElement $xml
-   *
-   * @return \zaporylie\Cargonizer\Data\Results
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $results = new Results();
-    $results->setLocation(Location::fromXML($xml->location));
-    $results->setServicePartners(ServicePartners::fromXML($xml->{'service-partners'}));
-    return $results;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
-
-    if ($xml === null) {
-      $xml = $results = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><results></results>");
+        return $this;
     }
-    else {
-      $results = $xml->addChild('results');
+
+    public function setServicePartners(?ServicePartners $servicePartners): self
+    {
+        $this->servicePartners = $servicePartners;
+
+        return $this;
     }
-    if ($this->getLocation() !== null) {
-      $this->getLocation()->toXML($results);
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
     }
-    if ($this->getServicePartners() !== null) {
-      $this->getServicePartners()->toXML($results);
+
+    public function getServicePartners(): ?ServicePartners
+    {
+        return $this->servicePartners;
     }
-    return $xml;
-  }
+
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        $results = new Results;
+        $results->setLocation(Location::fromXML($xml->location));
+        $results->setServicePartners(ServicePartners::fromXML($xml->{'service-partners'}));
+
+        return $results;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement
+    {
+
+        if (! $xml instanceof \SimpleXMLElement) {
+            $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><results></results>');
+            $results = $xml;
+        } else {
+            $results = $xml->addChild('results');
+        }
+
+        if ($this->getLocation() instanceof Location) {
+            $this->getLocation()->toXML($results);
+        }
+
+        if ($this->getServicePartners() instanceof ServicePartners) {
+            $this->getServicePartners()->toXML($results);
+        }
+
+        return $xml;
+    }
 }

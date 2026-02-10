@@ -1,48 +1,49 @@
 <?php
 
-namespace zaporylie\Cargonizer\Data;
+declare(strict_types=1);
 
-use zaporylie\Cargonizer\Data\SerializableDataInterface;
+namespace zaporylie\Cargonizer\Data;
 
 /**
  * Class Products.
- *
- * @package zaporylie\Cargonizer\Data
  */
-class Products extends ObjectsWrapper implements SerializableDataInterface {
+class Products extends ObjectsWrapper implements SerializableDataInterface
+{
+    public function addItem(Product $product): self
+    {
+        $this->array[$product->getIdentifier()] = $product;
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Product $item
-   *
-   * @return self
-   */
-  public function addItem(Product $item): self {
-    $this->array[$item->getIdentifier()] = $item;
-    return $this;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function fromXML(\SimpleXMLElement $xml): self {
-    $products = new Products();
-    /** @var \SimpleXMLElement $product */
-    foreach ($xml as $product) {
-      $products->addItem(Product::fromXML($product));
+        return $this;
     }
-    return $products;
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
-    // TODO: Implement toXML() method.
-    $products = $xml->addChild('products');
-    $products->addAttribute('type', 'array');
-    foreach ($this as $product) {
-      $product->toXML($products);
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public static function fromXML(\SimpleXMLElement $xml): self
+    {
+        $products = new Products;
+        /** @var \SimpleXMLElement $product */
+        foreach ($xml as $product) {
+            $products->addItem(Product::fromXML($product));
+        }
+
+        return $products;
     }
-    return $xml;
-  }
+
+    /**
+     * {@inheritdoc}
+     */
+    #[\Override]
+    public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement
+    {
+        // TODO: Implement toXML() method.
+        $products = $xml->addChild('products');
+        $products->addAttribute('type', 'array');
+        foreach ($this as $product) {
+            $product->toXML($products);
+        }
+
+        return $xml;
+    }
 }

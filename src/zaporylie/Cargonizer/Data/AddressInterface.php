@@ -1,96 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace zaporylie\Cargonizer\Data;
 
-interface AddressInterface {
+interface AddressInterface
+{
+    public function setName(?string $name): self;
 
-  /**
-   * @param string $name
-   */
-  public function setName(?string $name): self;
+    public function setPostcode(?string $postcode): self;
 
-  /**
-   * @param string $postcode
-   */
-  public function setPostcode(?string $postcode): self;
+    public function setCountry(?string $country): self;
 
-  /**
-   * @param string $country
-   */
-  public function setCountry(?string $country): self;
+    public function setCity(?string $city): self;
 
-  /**
-   * @param string $city
-   */
-  public function setCity(?string $city): self;
+    public function setAddress1(?string $address1): self;
 
-  /**
-   * @param string $address1
-   */
-  public function setAddress1(?string $address1): self;
+    public function setAddress2(?string $address2): self;
 
-  /**
-   * @param string $address2
-   */
-  public function setAddress2(?string $address2): self;
+    public function setFax(?string $fax): self;
 
-  /**
-   * @param string $fax
-   */
-  public function setFax(?string $fax): self;
+    public function setPhone(?string $phone): self;
 
-  /**
-   * @param string $phone
-   */
-  public function setPhone(?string $phone): self;
+    public function setMobile(?string $mobile): self;
 
-  /**
-   * @param string $mobile
-   */
-  public function setMobile(?string $mobile): self;
+    public function getName(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getName(): ?string;
+    public function getPostcode(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getPostcode(): ?string;
+    public function getCountry(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getCountry(): ?string;
+    public function getCity(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getCity(): ?string;
+    public function getAddress1(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getAddress1(): ?string;
+    public function getAddress2(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getAddress2(): ?string;
+    public function getFax(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getFax(): ?string;
+    public function getPhone(): ?string;
 
-  /**
-   * @return string
-   */
-  public function getPhone(): ?string;
-
-  /**
-   * @return string
-   */
-  public function getMobile(): ?string;
+    public function getMobile(): ?string;
 }
