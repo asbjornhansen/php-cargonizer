@@ -21,17 +21,17 @@ class TestClient extends Client
 
     protected $method = 'GET';
 
-    public function makeRequest(array $headers = [], $data = null)
+    public function makeRequest(array $headers = [], $data = null): \SimpleXMLElement|false
     {
         return $this->request($headers, $data);
     }
 
-    public function getResourcePublic()
+    public function getResourcePublic(): string
     {
         return $this->getResource();
     }
 
-    public function getMethodPublic()
+    public function getMethodPublic(): string
     {
         return $this->getMetod();
     }
