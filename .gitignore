@@ -2,3 +2,5 @@
 /vendor
 /.idea
 /data
+build
+.phpunit.result.cache
