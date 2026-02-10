@@ -2,9 +2,7 @@
 
 namespace zaporylie\Cargonizer;
 
-use Http\Client\HttpAsyncClient;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
+use Psr\Http\Client\ClientInterface;
 
 /**
  * Class Config
@@ -38,22 +36,38 @@ class Config
   /**
    * Use this static method to get default HTTP Client.
    *
-   * @param null|HttpClient|HttpAsyncClient $client
+   * @param null|ClientInterface $client
    *
-   * @return HttpClient|HttpAsyncClient
+   * @return ClientInterface
    */
-  public static function clientFactory($client = null)
+  public static function clientFactory($client = null): ClientInterface
   {
-    if (isset($client) && ($client instanceof HttpAsyncClient || $client instanceof HttpClient)) {
+    // Accept explicit PSR-18 client
+    if ($client instanceof ClientInterface) {
       return $client;
-    } elseif (isset($client)) {
+    }
+
+    // Reject invalid types
+    if ($client !== null) {
       throw new \LogicException(sprintf(
-        'HttpClient must be instance of "%s" or "%s"',
-        HttpClient::class,
-        HttpAsyncClient::class
+        'HttpClient must be instance of "%s"',
+        ClientInterface::class
       ));
     }
-    return HttpClientDiscovery::find();
+
+    // Try discovery if available (backward compatibility)
+    if (class_exists('\Http\Discovery\Psr18ClientDiscovery')) {
+      return \Http\Discovery\Psr18ClientDiscovery::find();
+    }
+
+    // Fallback: instantiate Guzzle directly
+    if (class_exists('\GuzzleHttp\Client')) {
+      return new \GuzzleHttp\Client();
+    }
+
+    throw new \LogicException(
+      'No PSR-18 HTTP Client found. Install guzzlehttp/guzzle or provide a client explicitly.'
+    );
   }
 
 }
