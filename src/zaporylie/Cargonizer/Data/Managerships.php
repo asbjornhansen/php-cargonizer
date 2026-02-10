@@ -9,7 +9,7 @@ class Managerships extends ObjectsWrapper implements SerializableDataInterface {
    *
    * @return self
    */
-  public function addItem(Managership $item) {
+  public function addItem(Managership $item): self {
     $this->array[$item->getId()] = $item;
     return $this;
   }
@@ -17,7 +17,7 @@ class Managerships extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $managerships = new Managerships();
 
     /** @var \SimpleXMLElement $agreement */
@@ -31,7 +31,7 @@ class Managerships extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $partners = $xml->addChild('managerships');
     $partners->addAttribute('type', 'array');
     /** @var \zaporylie\Cargonizer\Data\Managership $managership */

@@ -7,24 +7,24 @@ class Day implements SerializableDataInterface {
   /**
    * @var string
    */
-  protected $name;
+  protected ?string $name = null;
 
   /**
    * @var int
    */
-  protected $number;
+  protected ?int $number = null;
 
   /**
    * @var \zaporylie\Cargonizer\Data\Hours[]
    */
-  protected $hours;
+  protected array $hours = [];
 
   /**
    * Gets name value.
    *
    * @return string
    */
-  public function getName(): string {
+  public function getName(): ?string {
     return $this->name;
   }
 
@@ -33,14 +33,14 @@ class Day implements SerializableDataInterface {
    *
    * @return int
    */
-  public function getNumber(): int {
+  public function getNumber(): ?int {
     return $this->number;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $item = new Day();
     $item->name = (string) $xml->attributes()->name;
     $item->number = (int) $xml->attributes()->number;
@@ -58,10 +58,10 @@ class Day implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $item = $xml->addChild('item');
-    $item->addAttribute('name', $this->name);
-    $item->addAttribute('number', $this->number);
+    $item->addAttribute('name', $this->name ?? '');
+    $item->addAttribute('number', (string)($this->number ?? ''));
     return $xml;
   }
 }

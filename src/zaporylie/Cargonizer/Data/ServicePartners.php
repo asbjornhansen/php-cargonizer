@@ -10,7 +10,7 @@ class ServicePartners extends ObjectsWrapper implements SerializableDataInterfac
    *
    * @return self
    */
-  public function addItem(ServicePartner $item) {
+  public function addItem(ServicePartner $item): self {
     $this->array[$item->getNumber()] = $item;
     return $this;
   }
@@ -18,7 +18,7 @@ class ServicePartners extends ObjectsWrapper implements SerializableDataInterfac
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $servicePartners = new ServicePartners();
 
     if (isset($xml->{'service-partner'})) {
@@ -33,7 +33,7 @@ class ServicePartners extends ObjectsWrapper implements SerializableDataInterfac
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $partners = $xml->addChild('service-partners');
     $partners->addAttribute('type', 'array');
     /** @var \zaporylie\Cargonizer\Data\ServicePartner $partner */

@@ -8,17 +8,17 @@ class Results implements SerializableDataInterface {
   /**
    * @var \zaporylie\Cargonizer\Data\Location
    */
-  protected $location;
+  protected ?Location $location = null;
 
   /**
    * @var \zaporylie\Cargonizer\Data\ServicePartners
    */
-  protected $servicePartners;
+  protected ?ServicePartners $servicePartners = null;
 
   /**
    * @param \zaporylie\Cargonizer\Data\Location $location
    */
-  public function setLocation(Location $location) {
+  public function setLocation(?Location $location): self {
     $this->location = $location;
     return $this;
   }
@@ -26,7 +26,7 @@ class Results implements SerializableDataInterface {
   /**
    * @param \zaporylie\Cargonizer\Data\ServicePartners $servicePartners
    */
-  public function setServicePartners(ServicePartners $servicePartners) {
+  public function setServicePartners(?ServicePartners $servicePartners): self {
     $this->servicePartners = $servicePartners;
     return $this;
   }
@@ -34,14 +34,14 @@ class Results implements SerializableDataInterface {
   /**
    * @return \zaporylie\Cargonizer\Data\Location
    */
-  public function getLocation() {
+  public function getLocation(): ?Location {
     return $this->location;
   }
 
   /**
    * @return \zaporylie\Cargonizer\Data\ServicePartners
    */
-  public function getServicePartners() {
+  public function getServicePartners(): ?ServicePartners {
     return $this->servicePartners;
   }
 
@@ -50,7 +50,7 @@ class Results implements SerializableDataInterface {
    *
    * @return \zaporylie\Cargonizer\Data\Results
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $results = new Results();
     $results->setLocation(Location::fromXML($xml->location));
     $results->setServicePartners(ServicePartners::fromXML($xml->{'service-partners'}));
@@ -60,7 +60,7 @@ class Results implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml = null) {
+  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
 
     if ($xml === null) {
       $xml = $results = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><results></results>");
@@ -68,8 +68,12 @@ class Results implements SerializableDataInterface {
     else {
       $results = $xml->addChild('results');
     }
-    $this->getLocation()->toXML($results);
-    $this->getServicePartners()->toXML($results);
+    if ($this->getLocation() !== null) {
+      $this->getLocation()->toXML($results);
+    }
+    if ($this->getServicePartners() !== null) {
+      $this->getServicePartners()->toXML($results);
+    }
     return $xml;
   }
 }

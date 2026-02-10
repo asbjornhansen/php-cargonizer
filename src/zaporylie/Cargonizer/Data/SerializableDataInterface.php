@@ -14,12 +14,12 @@ interface SerializableDataInterface {
    *
    * @return self
    */
-  public static function fromXML(\SimpleXMLElement $xml);
+  public static function fromXML(\SimpleXMLElement $xml): self;
 
   /**
    * @param \SimpleXMLElement
    *
    * @return \SimpleXMLElement
    */
-  public function toXML(\SimpleXMLElement $xml);
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement;
 }

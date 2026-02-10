@@ -10,7 +10,7 @@ abstract class ObjectsWrapper implements \Iterator
    *
    * @var array
    */
-  protected $array = [];
+  protected array $array = [];
 
   /**
    * {@inheritdoc}
@@ -26,7 +26,7 @@ abstract class ObjectsWrapper implements \Iterator
    *
    * @return self
    */
-  public function removeItem($delta) {
+  public function removeItem(string|int $delta): self {
     if (isset($this->array[$delta])) {
       unset($this->array[$delta]);
     }
@@ -36,35 +36,35 @@ abstract class ObjectsWrapper implements \Iterator
   /**
    * {@inheritdoc}
    */
-  public function rewind() {
+  public function rewind(): mixed {
     return reset($this->array);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function current() {
+  public function current(): mixed {
     return current($this->array);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function key() {
+  public function key(): mixed {
     return key($this->array);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function next() {
+  public function next(): mixed {
     return next($this->array);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function valid() {
+  public function valid(): bool {
     return key($this->array) !== null;
   }
 

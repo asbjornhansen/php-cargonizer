@@ -4,13 +4,13 @@ namespace zaporylie\Cargonizer\Data;
 
 class References extends ObjectsWrapper implements SerializableDataInterface {
 
-  private $consigneeReference;
-  private $consignorReference;
+  private ?string $consigneeReference = null;
+  private ?string $consignorReference = null;
 
   /**
    * @return self
    */
-  public function addConsignorReference($reference) {
+  public function addConsignorReference(?string $reference): self {
     $this->consignorReference = $reference;
     return $this;
   }
@@ -18,7 +18,7 @@ class References extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * @return self
    */
-  public function addConsigneeReference($reference) {
+  public function addConsigneeReference(?string $reference): self {
     $this->consigneeReference = $reference;
     return $this;
   }
@@ -26,7 +26,7 @@ class References extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $refs = new References();
 
     return $refs;
@@ -35,10 +35,10 @@ class References extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $references = $xml->addChild('references');
-    $references->addChild('consignor', $this->consignorReference);
-    $references->addChild('consignee', $this->consigneeReference);
+    $references->addChild('consignor', $this->consignorReference ?? '');
+    $references->addChild('consignee', $this->consigneeReference ?? '');
     return $xml;
   }
 

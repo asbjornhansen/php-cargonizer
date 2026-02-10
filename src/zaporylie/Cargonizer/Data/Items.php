@@ -9,7 +9,7 @@ class Items extends ObjectsWrapper implements SerializableDataInterface {
    *
    * @return self
    */
-  public function addItem(Item $item) {
+  public function addItem(Item $item): self {
     $this->array[] = $item;
     return $this;
   }
@@ -17,7 +17,7 @@ class Items extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $items = new Items();
 
     foreach ($xml as $item) {
@@ -30,7 +30,7 @@ class Items extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $items = $xml->addChild('items');
     foreach ($this as $item) {
       $item->toXML($items);

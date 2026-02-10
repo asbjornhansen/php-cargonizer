@@ -7,52 +7,52 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @var string
    */
-  protected $address1;
+  protected ?string $address1 = null;
 
   /**
    * @var string
    */
-  protected $address2;
+  protected ?string $address2 = null;
 
   /**
    * @var string
    */
-  protected $city;
+  protected ?string $city = null;
 
   /**
    * @var string
    */
-  protected $country;
+  protected ?string $country = null;
 
   /**
    * @var string
    */
-  protected $fax;
+  protected ?string $fax = null;
 
   /**
    * @var string
    */
-  protected $mobile;
+  protected ?string $mobile = null;
 
   /**
    * @var string
    */
-  protected $name;
+  protected ?string $name = null;
 
   /**
    * @var string
    */
-  protected $phone;
+  protected ?string $phone = null;
 
   /**
    * @var string
    */
-  protected $postcode;
+  protected ?string $postcode = null;
 
   /**
    * @param string $name
    */
-  public function setName($name) {
+  public function setName(?string $name): self {
     $this->name = $name;
     return $this;
   }
@@ -60,7 +60,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $postcode
    */
-  public function setPostcode($postcode) {
+  public function setPostcode(?string $postcode): self {
     $this->postcode = $postcode;
     return $this;
   }
@@ -68,7 +68,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $country
    */
-  public function setCountry($country) {
+  public function setCountry(?string $country): self {
     $this->country = $country;
     return $this;
   }
@@ -76,7 +76,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $city
    */
-  public function setCity($city) {
+  public function setCity(?string $city): self {
     $this->city = $city;
     return $this;
   }
@@ -84,7 +84,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $address1
    */
-  public function setAddress1($address1) {
+  public function setAddress1(?string $address1): self {
     $this->address1 = $address1;
     return $this;
   }
@@ -92,7 +92,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $address2
    */
-  public function setAddress2($address2) {
+  public function setAddress2(?string $address2): self {
     $this->address2 = $address2;
     return $this;
   }
@@ -100,7 +100,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $fax
    */
-  public function setFax($fax) {
+  public function setFax(?string $fax): self {
     $this->fax = $fax;
     return $this;
   }
@@ -108,7 +108,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $phone
    */
-  public function setPhone($phone) {
+  public function setPhone(?string $phone): self {
     $this->phone = $phone;
     return $this;
   }
@@ -116,7 +116,7 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @param string $mobile
    */
-  public function setMobile($mobile) {
+  public function setMobile(?string $mobile): self {
     $this->mobile = $mobile;
     return $this;
   }
@@ -124,63 +124,63 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * @return string
    */
-  public function getName() {
+  public function getName(): ?string {
     return $this->name;
   }
 
   /**
    * @return string
    */
-  public function getPostcode() {
+  public function getPostcode(): ?string {
     return $this->postcode;
   }
 
   /**
    * @return string
    */
-  public function getCountry() {
+  public function getCountry(): ?string {
     return $this->country;
   }
 
   /**
    * @return string
    */
-  public function getCity() {
+  public function getCity(): ?string {
     return $this->city;
   }
 
   /**
    * @return string
    */
-  public function getAddress1() {
+  public function getAddress1(): ?string {
     return $this->address1;
   }
 
   /**
    * @return string
    */
-  public function getAddress2() {
+  public function getAddress2(): ?string {
     return $this->address2;
   }
 
   /**
    * @return string
    */
-  public function getFax() {
+  public function getFax(): ?string {
     return $this->fax;
   }
 
   /**
    * @return string
    */
-  public function getPhone() {
+  public function getPhone(): ?string {
     return $this->phone;
   }
 
   /**
    * @return string
    */
-  public function getMobile() {
+  public function getMobile(): ?string {
     return $this->mobile;
   }
 
@@ -203,16 +203,16 @@ abstract class Address implements AddressInterface, SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
-    $xml->addChild('name', $this->getName());
-    $xml->addChild('country', $this->getCountry());
-    $xml->addChild('postcode', $this->getPostcode());
-    $xml->addChild('city', $this->getCity());
-    $xml->addChild('address1', $this->getAddress1());
-    $xml->addChild('address2', $this->getAddress2());
-    $xml->addChild('mobile', $this->getMobile());
-    $xml->addChild('phone', $this->getPhone());
-    $xml->addChild('fax', $this->getFax());
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
+    $xml->addChild('name', $this->getName() ?? '');
+    $xml->addChild('country', $this->getCountry() ?? '');
+    $xml->addChild('postcode', $this->getPostcode() ?? '');
+    $xml->addChild('city', $this->getCity() ?? '');
+    $xml->addChild('address1', $this->getAddress1() ?? '');
+    $xml->addChild('address2', $this->getAddress2() ?? '');
+    $xml->addChild('mobile', $this->getMobile() ?? '');
+    $xml->addChild('phone', $this->getPhone() ?? '');
+    $xml->addChild('fax', $this->getFax() ?? '');
     return $xml;
   }
 }

@@ -4,240 +4,123 @@ namespace zaporylie\Cargonizer\Data;
 
 class ConsignmentResponse implements SerializableDataInterface {
 
-  /**
-   * @var int
-   */
-  protected $id;
+  protected ?int $id = null;
+  protected ?string $number = null;
+  protected ?string $numberWithChecksum = null;
+  protected ?string $consignmentPdf = null;
+  protected ?string $waybillPdf = null;
+  protected ?string $trackingUrl = null;
+  protected ?TransportAgreement $transportAgreement = null;
+  protected ?bool $bookingRequest = null;
+  protected bool|string|null $transfer = null;
+  protected array $values = [];
+  protected ?Product $product = null;
 
-  /**
-   * @var string
-   */
-  protected $number;
-  protected $numberWithChecksum;
-  protected $consignmentPdf;
-  protected $waybillPdf;
-  protected $trackingUrl;
-
-  /**
-   * @var \zaporylie\Cargonizer\Data\TransportAgreement
-   */
-  protected $transportAgreement;
-
-  /**
-   * @var bool
-   */
-  protected $bookingRequest;
-  protected $transfer;
-
-  /**
-   * @var array
-   */
-  protected $values = [];
-
-  /**
-   * @var \zaporylie\Cargonizer\Data\Product
-   */
-  protected $product;
-
-  /**
-   * @param int $id
-   */
-  public function setId($id) {
+  public function setId(int $id): self {
     $this->id = $id;
     return $this;
   }
 
-  /**
-   * Gets id value.
-   *
-   * @return int
-   */
-  public function getId() {
+  public function getId(): ?int {
     return $this->id;
   }
 
-  /**
-   * Sets number variable.
-   *
-   * @param string $number
-   *
-   * @return $this
-   */
-  public function setNumber($number) {
+  public function setNumber(string $number): self {
     $this->number = $number;
     return $this;
   }
 
-  /**
-   * Gets number value.
-   *
-   * @return string
-   */
-  public function getNumber() {
+  public function getNumber(): ?string {
     return $this->number;
   }
 
-  /**
-   * Sets transfer variable.
-   *
-   * @param mixed $transfer
-   *
-   * @return $this
-   */
-  public function setTransfer($transfer) {
+  public function setTransfer(bool|string $transfer): self {
     $this->transfer = $transfer;
     return $this;
   }
 
-  /**
-   * Gets transfer value.
-   *
-   * @return mixed
-   */
-  public function getTransfer() {
+  public function getTransfer(): bool|string|null {
     return $this->transfer;
   }
 
-  /**
-   * Sets numberWithChecksum variable.
-   *
-   * @param string $numberWithChecksum
-   *
-   * @return $this
-   */
-  public function setNumberWithChecksum($numberWithChecksum) {
+  public function setNumberWithChecksum(string $numberWithChecksum): self {
     $this->numberWithChecksum = $numberWithChecksum;
     return $this;
   }
 
-  /**
-   * Gets numberWithChecksum value.
-   *
-   * @return string
-   */
-  public function getNumberWithChecksum() {
+  public function getNumberWithChecksum(): ?string {
     return $this->numberWithChecksum;
   }
 
-  /**
-   * Sets consignmentPdf variable.
-   *
-   * @param mixed $consignmentPdf
-   *
-   * @return $this
-   */
-  public function setConsignmentPdf($consignmentPdf) {
+  public function setConsignmentPdf(string $consignmentPdf): self {
     $this->consignmentPdf = $consignmentPdf;
     return $this;
   }
 
-  /**
-   * Gets consignmentPdf value.
-   *
-   * @return mixed
-   */
-  public function getConsignmentPdf() {
+  public function getConsignmentPdf(): ?string {
     return $this->consignmentPdf;
   }
 
-  /**
-   * Sets waybillPdf variable.
-   *
-   * @param mixed $waybillPdf
-   *
-   * @return $this
-   */
-  public function setWaybillPdf($waybillPdf) {
+  public function setWaybillPdf(string $waybillPdf): self {
     $this->waybillPdf = $waybillPdf;
     return $this;
   }
 
-  /**
-   * Gets waybillPdf value.
-   *
-   * @return mixed
-   */
-  public function getWaybillPdf() {
+  public function getWaybillPdf(): ?string {
     return $this->waybillPdf;
   }
 
-  /**
-   * Sets trackingUrl variable.
-   *
-   * @param mixed $trackingUrl
-   *
-   * @return $this
-   */
-  public function setTrackingUrl($trackingUrl) {
+  public function setTrackingUrl(string $trackingUrl): self {
     $this->trackingUrl = $trackingUrl;
     return $this;
   }
 
-  /**
-   * Gets trackingUrl value.
-   *
-   * @return mixed
-   */
-  public function getTrackingUrl() {
+  public function getTrackingUrl(): ?string {
     return $this->trackingUrl;
   }
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\TransportAgreement $transportAgreement
-   */
-  public function setTransportAgreement(TransportAgreement $transportAgreement) {
+  public function setTransportAgreement(TransportAgreement $transportAgreement): self {
     $this->transportAgreement = $transportAgreement;
     return $this;
   }
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Product $product
-   */
-  public function setProduct(Product $product) {
+  public function getTransportAgreement(): ?TransportAgreement {
+    return $this->transportAgreement;
+  }
+
+  public function setProduct(Product $product): self {
     $this->product = $product;
     return $this;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getValues() {
+  public function getValues(): array {
     return $this->values;
   }
 
-  public function addValue($key, $value) {
+  public function addValue(string $key, mixed $value): self {
     $this->values[$key] = $value;
+    return $this;
   }
 
-  public function setValues(array $values) {
+  public function setValues(array $values): self {
     $this->values = $values;
+    return $this;
   }
 
-  /**
-   * @return \zaporylie\Cargonizer\Data\Product
-   */
-  public function getProduct() {
+  public function getProduct(): ?Product {
     return $this->product;
   }
 
-  /**
-   * Sets bookingRequest variable.
-   *
-   * @param bool $bookingRequest
-   *
-   * @return $this
-   */
-  public function setBookingRequest($bookingRequest) {
+  public function setBookingRequest(bool $bookingRequest): self {
     $this->bookingRequest = $bookingRequest;
     return $this;
   }
 
-  /**
-   * @param \SimpleXMLElement $xml
-   *
-   * @return \zaporylie\Cargonizer\Data\ConsignmentResponse
-   */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public function getBookingRequest(): ?bool {
+    return $this->bookingRequest;
+  }
+
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $consignment = new ConsignmentResponse();
     $consignment->setId((int) $xml->{'id'});
     $consignment->setNumber((string) $xml->{'number'});
@@ -256,9 +139,7 @@ class ConsignmentResponse implements SerializableDataInterface {
     return $consignment;
   }
 
-  /**
-   * @return string
-   */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
+    return $xml;
   }
 }

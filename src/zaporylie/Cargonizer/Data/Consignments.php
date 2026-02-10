@@ -16,7 +16,7 @@ class Consignments extends ObjectsWrapper implements SerializableDataInterface {
    *
    * @return self
    */
-  public function addItem(Consignment $item) {
+  public function addItem(Consignment $item): self {
     $this->array[] = $item;
     return $this;
   }
@@ -24,7 +24,7 @@ class Consignments extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $consignments = new Consignments();
     /** @var \SimpleXMLElement $consignment */
     foreach ($xml as $consignment) {
@@ -36,8 +36,8 @@ class Consignments extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml = null) {
-    if ($xml === NULL) {
+  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
+    if ($xml === null) {
       $xml = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><consignments></consignments>");
     }
     foreach ($this as $consignment) {

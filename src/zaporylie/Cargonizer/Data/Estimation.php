@@ -7,22 +7,22 @@ class Estimation implements SerializableDataInterface {
   /**
    * @var float
    */
-  protected $gross;
+  protected ?float $gross = null;
 
   /**
    * @var float
    */
-  protected $net;
+  protected ?float $net = null;
 
   /**
    * @var float
    */
-  protected $estimated;
+  protected ?float $estimated = null;
 
   /**
    * @param float $estimated
    */
-  public function setEstimated($estimated) {
+  public function setEstimated(?float $estimated): self {
     $this->estimated = $estimated;
     return $this;
   }
@@ -30,7 +30,7 @@ class Estimation implements SerializableDataInterface {
   /**
    * @param float $gross
    */
-  public function setGross($gross) {
+  public function setGross(?float $gross): self {
     $this->gross = $gross;
     return $this;
   }
@@ -38,7 +38,7 @@ class Estimation implements SerializableDataInterface {
   /**
    * @param float $net
    */
-  public function setNet($net) {
+  public function setNet(?float $net): self {
     $this->net = $net;
     return $this;
   }
@@ -46,28 +46,28 @@ class Estimation implements SerializableDataInterface {
   /**
    * @return float
    */
-  public function getEstimated() {
+  public function getEstimated(): ?float {
     return $this->estimated;
   }
 
   /**
    * @return float
    */
-  public function getGross() {
+  public function getGross(): ?float {
     return $this->gross;
   }
 
   /**
    * @return float
    */
-  public function getNet() {
+  public function getNet(): ?float {
     return $this->net;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $estimation = new Estimation();
     $estimation->setEstimated((float) $xml->{'estimated-cost'});
     $estimation->setGross((float) $xml->{'gross-amount'});
@@ -78,13 +78,13 @@ class Estimation implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml = null) {
+  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
     if ($xml === null) {
       $xml = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><hash></hash>");
     }
-    $xml->addChild('gross-amount', $this->getGross())->addAttribute("type", "float");
-    $xml->addChild('net-amount', $this->getNet())->addAttribute("type", "float");
-    $xml->addChild('estimated-amount', $this->getEstimated())->addAttribute("type", "float");
+    $xml->addChild('gross-amount', (string)($this->getGross() ?? ''))->addAttribute("type", "float");
+    $xml->addChild('net-amount', (string)($this->getNet() ?? ''))->addAttribute("type", "float");
+    $xml->addChild('estimated-amount', (string)($this->getEstimated() ?? ''))->addAttribute("type", "float");
     return $xml;
   }
 }

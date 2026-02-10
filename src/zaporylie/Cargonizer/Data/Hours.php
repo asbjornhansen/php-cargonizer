@@ -7,19 +7,19 @@ class Hours implements SerializableDataInterface {
   /**
    * @var string
    */
-  protected $from;
+  protected ?string $from = null;
 
   /**
    * @var string
    */
-  protected $to;
+  protected ?string $to = null;
 
   /**
    * Gets from value.
    *
    * @return string
    */
-  public function getFrom(): string {
+  public function getFrom(): ?string {
     return $this->from;
   }
 
@@ -28,14 +28,14 @@ class Hours implements SerializableDataInterface {
    *
    * @return string
    */
-  public function getTo(): string {
+  public function getTo(): ?string {
     return $this->to;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $item = new Hours();
     $item->from = (string) $xml->attributes()->from;
     $item->to = (string) $xml->attributes()->to;
@@ -46,10 +46,10 @@ class Hours implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $item = $xml->addChild('item');
-    $item->addAttribute('from', $this->from);
-    $item->addAttribute('to', $this->to);
+    $item->addAttribute('from', $this->from ?? '');
+    $item->addAttribute('to', $this->to ?? '');
 
     return $xml;
   }

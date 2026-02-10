@@ -16,7 +16,7 @@ class Products extends ObjectsWrapper implements SerializableDataInterface {
    *
    * @return self
    */
-  public function addItem(Product $item) {
+  public function addItem(Product $item): self {
     $this->array[$item->getIdentifier()] = $item;
     return $this;
   }
@@ -24,7 +24,7 @@ class Products extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $products = new Products();
     /** @var \SimpleXMLElement $product */
     foreach ($xml as $product) {
@@ -36,7 +36,7 @@ class Products extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     // TODO: Implement toXML() method.
     $products = $xml->addChild('products');
     $products->addAttribute('type', 'array');

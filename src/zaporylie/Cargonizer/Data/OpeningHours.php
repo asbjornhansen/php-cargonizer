@@ -10,7 +10,7 @@ class OpeningHours extends ObjectsWrapper implements SerializableDataInterface {
    *
    * @return self
    */
-  public function addItem(Day $item) {
+  public function addItem(Day $item): self {
     $this->array[] = $item;
     return $this;
   }
@@ -18,7 +18,7 @@ class OpeningHours extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $openingHours = new OpeningHours();
 
     if (isset($xml->{'opening-hours'}->{'day'})) {
@@ -33,7 +33,7 @@ class OpeningHours extends ObjectsWrapper implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $openingHours = $xml->addChild('opening-hours');
     $openingHours->addAttribute('type', 'array');
     /** @var \zaporylie\Cargonizer\Data\Day $day */

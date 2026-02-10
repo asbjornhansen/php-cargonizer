@@ -7,64 +7,67 @@ class Plan implements SerializableDataInterface {
   /**
    * @var string
    */
-  protected $name;
+  protected ?string $name = null;
 
   /**
    * @var int
    */
-  protected $itemLimit;
+  protected ?int $itemLimit = null;
 
   /**
    * @var int
    */
-  protected $itemCounter;
+  protected ?int $itemCounter = null;
 
   /**
    * @return string
    */
-  public function getName() {
+  public function getName(): ?string {
     return $this->name;
   }
 
   /**
    * @return int
    */
-  public function getItemCounter() {
+  public function getItemCounter(): ?int {
     return $this->itemCounter;
   }
 
   /**
    * @return int
    */
-  public function getItemLimit() {
+  public function getItemLimit(): ?int {
     return $this->itemLimit;
   }
 
   /**
    * @param string $name
    */
-  public function setName($name) {
+  public function setName(?string $name): self {
     $this->name = $name;
+    return $this;
   }
 
   /**
    * @param int $itemCounter
    */
-  public function setItemCounter($itemCounter) {
+  public function setItemCounter(?int $itemCounter): self {
     $this->itemCounter = $itemCounter;
+    return $this;
   }
 
   /**
    * @param int $itemLimit
    */
-  public function setItemLimit($itemLimit) {
+  public function setItemLimit(?int $itemLimit): self {
     $this->itemLimit = $itemLimit;
+    return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $plan = new Plan();
     $plan->setName((string) $xml->{'name'});
     $plan->setItemLimit((int) $xml->{'item_limit'});
@@ -75,11 +78,11 @@ class Plan implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $plan = $xml->addChild('plan');
-    $xml->addChild('plan', $this->getName());
-    $xml->addChild('item_limit', $this->getItemLimit());
-    $xml->addChild('item_counter', $this->getItemCounter());
+    $xml->addChild('plan', $this->getName() ?? '');
+    $xml->addChild('item_limit', (string)($this->getItemLimit() ?? ''));
+    $xml->addChild('item_counter', (string)($this->getItemCounter() ?? ''));
     return $xml;
   }
 }

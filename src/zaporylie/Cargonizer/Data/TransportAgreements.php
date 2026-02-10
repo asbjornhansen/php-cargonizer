@@ -14,7 +14,7 @@ class TransportAgreements extends ObjectsWrapper implements SerializableDataInte
    *
    * @return self
    */
-  public function addItem(TransportAgreement $item) {
+  public function addItem(TransportAgreement $item): self {
     $this->array[$item->getId()] = $item;
     return $this;
   }
@@ -22,7 +22,7 @@ class TransportAgreements extends ObjectsWrapper implements SerializableDataInte
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $transportAgreements = new TransportAgreements();
 
     /** @var \SimpleXMLElement $agreement */
@@ -36,7 +36,7 @@ class TransportAgreements extends ObjectsWrapper implements SerializableDataInte
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml = null) {
+  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
 
     if ($xml === null) {
       $xml = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><transport-agreements type=\"array\"></transport-agreements>");

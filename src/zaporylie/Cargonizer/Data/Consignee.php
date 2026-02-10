@@ -9,103 +9,103 @@ class Consignee implements SerializableDataInterface {
    *
    * @var bool
    */
-  protected $freightPayer;
+  protected ?bool $freightPayer = null;
 
   /**
    * Optional.
    *
    * @var int
    */
-  protected $number;
+  protected ?int $number = null;
 
   /**
    * Required.
    *
    * @var string
    */
-  protected $name;
+  protected ?string $name = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $address1;
+  protected ?string $address1 = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $address2;
+  protected ?string $address2 = null;
 
   /**
    * Required.
    *
    * @var string
    */
-  protected $postcode;
+  protected ?string $postcode = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $city;
+  protected ?string $city = null;
 
   /**
    * Required. Only ISO 3166-1 (2-alpha) is supported.
    *
    * @var string
    */
-  protected $country;
+  protected ?string $country = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $email;
+  protected ?string $email = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $mobile;
+  protected ?string $mobile = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $phone;
+  protected ?string $phone = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $fax;
+  protected ?string $fax = null;
 
   /**
    * Optional.
    *
    * @var string
    */
-  protected $contactPerson;
+  protected ?string $contactPerson = null;
 
   /**
    * Optional.
    *
    * @var int
    */
-  protected $customerNumber;
+  protected ?int $customerNumber = null;
 
   /**
    * @param int $number
    */
-  public function setNumber($number) {
+  public function setNumber(?int $number): self {
     $this->number = $number;
     return $this;
   }
@@ -113,7 +113,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $name
    */
-  public function setName($name) {
+  public function setName(?string $name): self {
     $this->name = $name;
     return $this;
   }
@@ -121,7 +121,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $address1
    */
-  public function setAddress1($address1) {
+  public function setAddress1(?string $address1): self {
     $this->address1 = $address1;
     return $this;
   }
@@ -129,7 +129,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $address2
    */
-  public function setAddress2($address2) {
+  public function setAddress2(?string $address2): self {
     $this->address2 = $address2;
     return $this;
   }
@@ -137,7 +137,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $city
    */
-  public function setCity($city) {
+  public function setCity(?string $city): self {
     $this->city = $city;
     return $this;
   }
@@ -145,7 +145,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $country
    */
-  public function setCountry($country) {
+  public function setCountry(?string $country): self {
     $this->country = $country;
     return $this;
   }
@@ -153,7 +153,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $postcode
    */
-  public function setPostcode($postcode) {
+  public function setPostcode(?string $postcode): self {
     $this->postcode = $postcode;
     return $this;
   }
@@ -161,7 +161,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $contactPerson
    */
-  public function setContactPerson($contactPerson) {
+  public function setContactPerson(?string $contactPerson): self {
     $this->contactPerson = $contactPerson;
     return $this;
   }
@@ -169,7 +169,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param int $customerNumber
    */
-  public function setCustomerNumber($customerNumber) {
+  public function setCustomerNumber(?int $customerNumber): self {
     $this->customerNumber = $customerNumber;
     return $this;
   }
@@ -177,7 +177,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $email
    */
-  public function setEmail($email) {
+  public function setEmail(?string $email): self {
     $this->email = $email;
     return $this;
   }
@@ -185,7 +185,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $mobile
    */
-  public function setMobile($mobile) {
+  public function setMobile(?string $mobile): self {
     $this->mobile = $mobile;
     return $this;
   }
@@ -193,7 +193,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $phone
    */
-  public function setPhone($phone) {
+  public function setPhone(?string $phone): self {
     $this->phone = $phone;
     return $this;
   }
@@ -201,7 +201,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param string $fax
    */
-  public function setFax($fax) {
+  public function setFax(?string $fax): self {
     $this->fax = $fax;
     return $this;
   }
@@ -209,7 +209,7 @@ class Consignee implements SerializableDataInterface {
   /**
    * @param bool $freightPayer
    */
-  public function setFreightPayer($freightPayer) {
+  public function setFreightPayer(?bool $freightPayer): self {
     $this->freightPayer = $freightPayer;
     return $this;
   }
@@ -217,98 +217,98 @@ class Consignee implements SerializableDataInterface {
   /**
    * @return string
    */
-  public function getName() {
+  public function getName(): ?string {
     return $this->name;
   }
 
   /**
    * @return int
    */
-  public function getNumber() {
+  public function getNumber(): ?int {
     return $this->number;
   }
 
   /**
    * @return string
    */
-  public function getAddress1() {
+  public function getAddress1(): ?string {
     return $this->address1;
   }
 
   /**
    * @return string
    */
-  public function getAddress2() {
+  public function getAddress2(): ?string {
     return $this->address2;
   }
 
   /**
    * @return string
    */
-  public function getCity() {
+  public function getCity(): ?string {
     return $this->city;
   }
 
   /**
    * @return string
    */
-  public function getCountry() {
+  public function getCountry(): ?string {
     return $this->country;
   }
 
   /**
    * @return string
    */
-  public function getPostcode() {
+  public function getPostcode(): ?string {
     return $this->postcode;
   }
 
   /**
    * @return string
    */
-  public function getContactPerson() {
+  public function getContactPerson(): ?string {
     return $this->contactPerson;
   }
 
   /**
    * @return int
    */
-  public function getCustomerNumber() {
+  public function getCustomerNumber(): ?int {
     return $this->customerNumber;
   }
 
   /**
    * @return string
    */
-  public function getEmail() {
+  public function getEmail(): ?string {
     return $this->email;
   }
 
   /**
    * @return string
    */
-  public function getMobile() {
+  public function getMobile(): ?string {
     return $this->mobile;
   }
 
   /**
    * @return string
    */
-  public function getPhone() {
+  public function getPhone(): ?string {
     return $this->phone;
   }
 
   /**
    * @return string
    */
-  public function getFax() {
+  public function getFax(): ?string {
     return $this->fax;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $consignee = new Consignee();
     $consignee->setName((string) $xml->name);
     $consignee->setPostcode((string) $xml->postcode);
@@ -326,19 +326,19 @@ class Consignee implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $consignee = $xml->addChild('consignee');
-    $consignee->addChild('name', $this->getName());
-    $consignee->addChild('country', $this->getCountry());
-    $consignee->addChild('postcode', $this->getPostcode());
-    $consignee->addChild('city', $this->getCity());
-    $consignee->addChild('address1', $this->getAddress1());
-    $consignee->addChild('address2', $this->getAddress2());
-    $consignee->addChild('email', $this->getEmail());
-    $consignee->addChild('mobile', $this->getMobile());
-    $consignee->addChild('phone', $this->getPhone());
-    $consignee->addChild('fax', $this->getFax());
-    $consignee->addChild('customer-number', $this->getCustomerNumber());
+    $consignee->addChild('name', $this->getName() ?? '');
+    $consignee->addChild('country', $this->getCountry() ?? '');
+    $consignee->addChild('postcode', $this->getPostcode() ?? '');
+    $consignee->addChild('city', $this->getCity() ?? '');
+    $consignee->addChild('address1', $this->getAddress1() ?? '');
+    $consignee->addChild('address2', $this->getAddress2() ?? '');
+    $consignee->addChild('email', $this->getEmail() ?? '');
+    $consignee->addChild('mobile', $this->getMobile() ?? '');
+    $consignee->addChild('phone', $this->getPhone() ?? '');
+    $consignee->addChild('fax', $this->getFax() ?? '');
+    $consignee->addChild('customer-number', (string)($this->getCustomerNumber() ?? ''));
     return $xml;
   }
 }

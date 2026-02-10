@@ -4,219 +4,133 @@ namespace zaporylie\Cargonizer\Data;
 
 class Consignment implements SerializableDataInterface {
 
-  /**
-   * @var int
-   */
-  protected $transportAgreement;
-
-  /**
-   * @var bool
-   */
-  protected $estimate;
-  protected $transfer;
-  protected $bookingRequest;
-
-  /**
-   * @var bool
-   */
-  protected $print = false;
-
-  /**
-   * @var array
-   */
-  protected $values = [];
-
-  /**
-   * @var string
-   */
-  protected $product;
-
-  /**
-   * @var \zaporylie\Cargonizer\Data\Parts
-   */
-  protected $parts;
-
-  /**
-   * @var \zaporylie\Cargonizer\Data\Items
-   */
-  protected $items;
-
-  /**
-   * @var array
-   */
-  protected $services = [];
-
-  /**
-   * @var \zaporylie\Cargonizer\Data\References
-   */
-  protected $references;
-  protected $message;
+  protected ?int $transportAgreement = null;
+  protected ?bool $estimate = null;
+  protected bool|string|null $transfer = null;
+  protected ?bool $bookingRequest = null;
+  protected bool $print = false;
+  protected array $values = [];
+  protected ?string $product = null;
+  protected ?Parts $parts = null;
+  protected ?Items $items = null;
+  protected array $services = [];
+  protected ?References $references = null;
+  protected ?string $message = null;
 
 
-  /**
-   * @return mixed
-   */
-  public function getTransfer() {
+  public function getTransfer(): bool|string|null {
     return $this->transfer;
   }
 
-  /**
-   * @param mixed $transfer
-   */
-  public function setTransfer($transfer) {
+  public function setTransfer(bool|string|null $transfer): self {
     $this->transfer = $transfer;
+    return $this;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getPrint() {
+  public function getPrint(): bool {
     return $this->print;
   }
 
-  /**
-   * @param mixed $print
-   */
-  public function setPrint($print) {
+  public function setPrint(bool $print): self {
     $this->print = $print;
+    return $this;
   }
 
-  /**
-   * @return bool
-   */
-  public function getEstimate() {
+  public function getEstimate(): ?bool {
     return $this->estimate;
   }
 
-  /**
-   * @param bool $estimate
-   */
-  public function setEstimate($estimate) {
+  public function setEstimate(?bool $estimate): self {
     $this->estimate = $estimate;
+    return $this;
   }
 
-  public function setReferences(References $references) {
+  public function setReferences(References $references): self {
     $this->references = $references;
+    return $this;
   }
 
-  /**
-   * @param int $transportAgreement
-   */
-  public function setTransportAgreement($transportAgreement) {
+  public function setTransportAgreement(int $transportAgreement): self {
     $this->transportAgreement = $transportAgreement;
     return $this;
   }
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Items $items
-   */
-  public function setItems(Items $items) {
+  public function setItems(Items $items): self {
     $this->items = $items;
     return $this;
   }
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Item $item
-   */
-  public function addItem(Item $item) {
+  public function addItem(Item $item): self {
     $this->items[] = $item;
     return $this;
   }
 
-  /**
-   * @param string $product
-   */
-  public function setProduct($product) {
+  public function setProduct(string $product): self {
     $this->product = $product;
     return $this;
   }
 
-  /**
-   * @param \zaporylie\Cargonizer\Data\Parts $parts
-   */
-  public function setParts(Parts $parts) {
+  public function setParts(Parts $parts): self {
     $this->parts = $parts;
     return $this;
   }
 
-  /**
-   * @return mixed
-   */
-  public function getValues() {
+  public function getValues(): array {
     return $this->values;
   }
 
-  public function addValue($key, $value) {
+  public function addValue(string $key, mixed $value): self {
     $this->values[$key] = $value;
+    return $this;
   }
 
-  public function setValues(array $values) {
+  public function setValues(array $values): self {
     $this->values = $values;
+    return $this;
   }
 
-  /**
-   * @return array
-   */
-  public function getServices() {
+  public function getServices(): array {
     return $this->services;
   }
 
-  public function addService($id) {
+  public function addService(string|int $id): self {
     $this->services[] = $id;
+    return $this;
   }
 
-  public function setServices(array $values) {
+  public function setServices(array $values): self {
     $this->services = $values;
+    return $this;
   }
 
-  /**
-   * @return string
-   */
-  public function getProduct() {
+  public function getProduct(): ?string {
     return $this->product;
   }
 
-  /**
-   * @return \zaporylie\Cargonizer\Data\Parts
-   */
-  public function getParts() {
+  public function getParts(): ?Parts {
     return $this->parts;
   }
 
-  /**
-   * @return \zaporylie\Cargonizer\Data\Items
-   */
-  public function getItems() {
+  public function getItems(): ?Items {
     return $this->items;
   }
 
-  /**
-   * @return int
-   */
-  public function getTransportAgreement() {
+  public function getTransportAgreement(): ?int {
     return $this->transportAgreement;
   }
 
-  /**
-   * @param \SimpleXMLElement $xml
-   *
-   * @return \zaporylie\Cargonizer\Data\Consignment
-   */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $consignment = new Consignment();
     return $consignment;
   }
 
-  public function getReferences() {
+  public function getReferences(): ?References {
     return $this->references;
   }
 
-  /**
-   * @return string
-   */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $consignment = $xml->addChild('consignment');
-    $consignment->addAttribute("transport_agreement", $this->getTransportAgreement());
+    $consignment->addAttribute("transport_agreement", (string)($this->getTransportAgreement() ?? ''));
     if ($this->getPrint()) {
       $consignment->addAttribute('print', 'true');
     }
@@ -232,19 +146,19 @@ class Consignment implements SerializableDataInterface {
     foreach ($this->values as $key => $value) {
       $value_el = $values->addChild('value');
       $value_el->addAttribute('name', $key);
-      $value_el->addAttribute('value', $value);
+      $value_el->addAttribute('value', $value ?? '');
     }
     if ($this->getTransfer()) {
       $consignment->addChild('transfer', 'true');
     }
-    $consignment->addChild('product', $this->getProduct());
-    $this->getReferences()->toXML($consignment);
-    $this->getParts()->toXML($consignment);
-    $this->getItems()->toXML($consignment);
+    $consignment->addChild('product', $this->getProduct() ?? '');
+    $this->getReferences()?->toXML($consignment);
+    $this->getParts()?->toXML($consignment);
+    $this->getItems()?->toXML($consignment);
     $services = $consignment->addChild('services');
     foreach ($this->getServices() as $service) {
       $service_el = $services->addChild('service');
-      $service_el->addAttribute('id', $service);
+      $service_el->addAttribute('id', (string)$service);
     }
     return $xml;
   }

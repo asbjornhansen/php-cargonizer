@@ -7,17 +7,17 @@ class Carrier implements SerializableDataInterface {
   /**
    * @var string
    */
-  protected $identifier;
+  protected ?string $identifier = null;
 
   /**
    * @var string
    */
-  protected $name;
+  protected ?string $name = null;
 
   /**
    * @param string $name
    */
-  public function setName($name) {
+  public function setName(?string $name): self {
     $this->name = $name;
     return $this;
   }
@@ -25,7 +25,7 @@ class Carrier implements SerializableDataInterface {
   /**
    * @param string $identifier
    */
-  public function setIdentifier($identifier) {
+  public function setIdentifier(?string $identifier): self {
     $this->identifier = $identifier;
     return $this;
   }
@@ -33,14 +33,14 @@ class Carrier implements SerializableDataInterface {
   /**
    * @return string
    */
-  public function getName() {
+  public function getName(): ?string {
     return $this->name;
   }
 
   /**
    * @return string
    */
-  public function getIdentifier() {
+  public function getIdentifier(): ?string {
     return $this->identifier;
   }
 
@@ -49,7 +49,7 @@ class Carrier implements SerializableDataInterface {
    *
    * @return \zaporylie\Cargonizer\Data\Carrier
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $carrier = new Carrier();
     $carrier->setName((string) $xml->name);
     $carrier->setIdentifier((string) $xml->identifier);
@@ -61,10 +61,10 @@ class Carrier implements SerializableDataInterface {
    *
    * @return \SimpleXMLElement
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $carrier = $xml->addChild('carrier');
-    $carrier->addChild('identifier', $this->getIdentifier());
-    $carrier->addChild('name', $this->getName());
+    $carrier->addChild('identifier', $this->getIdentifier() ?? '');
+    $carrier->addChild('name', $this->getName() ?? '');
     return $xml;
   }
 }

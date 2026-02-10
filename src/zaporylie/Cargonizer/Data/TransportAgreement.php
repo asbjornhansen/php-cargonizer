@@ -7,32 +7,32 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * @var string
    */
-  protected $description;
+  protected ?string $description = null;
 
   /**
    * @var int
    */
-  protected $id;
+  protected ?int $id = null;
 
   /**
    * @var int
    */
-  protected $number;
+  protected ?int $number = null;
 
   /**
    * @var \zaporylie\Cargonizer\Data\Carrier
    */
-  protected $carrier;
+  protected ?Carrier $carrier = null;
 
   /**
    * @var \zaporylie\Cargonizer\Data\Products
    */
-  protected $products;
+  protected ?Products $products = null;
 
   /**
    * @param string $description
    */
-  public function setDescription($description) {
+  public function setDescription(?string $description): self {
     $this->description = $description;
     return $this;
   }
@@ -40,7 +40,7 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * @param \zaporylie\Cargonizer\Data\Carrier $carrier
    */
-  public function setCarrier(Carrier $carrier) {
+  public function setCarrier(?Carrier $carrier): self {
     $this->carrier = $carrier;
     return $this;
   }
@@ -48,7 +48,7 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * @param int $id
    */
-  public function setId($id) {
+  public function setId(?int $id): self {
     $this->id = $id;
     return $this;
   }
@@ -56,7 +56,7 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * @param int $number
    */
-  public function setNumber($number) {
+  public function setNumber(?int $number): self {
     $this->number = $number;
     return $this;
   }
@@ -64,7 +64,7 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * @param \zaporylie\Cargonizer\Data\Products $products
    */
-  public function setProducts(Products $products) {
+  public function setProducts(?Products $products): self {
     $this->products = $products;
     return $this;
   }
@@ -72,42 +72,42 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * @return int
    */
-  public function getId() {
+  public function getId(): ?int {
     return $this->id;
   }
 
   /**
    * @return \zaporylie\Cargonizer\Data\Carrier
    */
-  public function getCarrier() {
+  public function getCarrier(): ?Carrier {
     return $this->carrier;
   }
 
   /**
    * @return string
    */
-  public function getDescription() {
+  public function getDescription(): ?string {
     return $this->description;
   }
 
   /**
    * @return int
    */
-  public function getNumber() {
+  public function getNumber(): ?int {
     return $this->number;
   }
 
   /**
    * @return \zaporylie\Cargonizer\Data\Products
    */
-  public function getProducts() {
+  public function getProducts(): ?Products {
     return $this->products;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $transportAgreement = new TransportAgreement();
     $transportAgreement->setDescription((string) $xml->description);
     $transportAgreement->setId((int) $xml->id);
@@ -124,13 +124,17 @@ class TransportAgreement implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $agreement = $xml->addChild('transport-agreement');
-    $agreement->addChild('description', $this->getDescription());
-    $agreement->addChild('id', $this->getId());
-    $agreement->addChild('number', $this->getNumber());
-    $this->getCarrier()->toXML($agreement);
-    $this->getProducts()->toXML($agreement);
+    $agreement->addChild('description', $this->getDescription() ?? '');
+    $agreement->addChild('id', (string)($this->getId() ?? ''));
+    $agreement->addChild('number', (string)($this->getNumber() ?? ''));
+    if ($this->getCarrier() !== null) {
+      $this->getCarrier()->toXML($agreement);
+    }
+    if ($this->getProducts() !== null) {
+      $this->getProducts()->toXML($agreement);
+    }
 //    $agreement->addChild('products', $this->get);
 //    $agreement->addChild('', $this->get);
 

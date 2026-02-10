@@ -7,22 +7,22 @@ class Service implements SerializableDataInterface {
   /**
    * @var string
    */
-  protected $identifier;
+  protected ?string $identifier = null;
 
   /**
    * @var string
    */
-  protected $name;
+  protected ?string $name = null;
 
   /**
    * @var \zaporylie\Cargonizer\Data\Attribute[]
    */
-  protected $attributes;
+  protected array $attributes = [];
 
   /**
    * @param string $identifier
    */
-  public function setIdentifier($identifier) {
+  public function setIdentifier(?string $identifier): self {
     $this->identifier = $identifier;
     return $this;
   }
@@ -30,7 +30,7 @@ class Service implements SerializableDataInterface {
   /**
    * @param string $name
    */
-  public function setName($name) {
+  public function setName(?string $name): self {
     $this->name = $name;
     return $this;
   }
@@ -38,7 +38,7 @@ class Service implements SerializableDataInterface {
   /**
    * @param \zaporylie\Cargonizer\Data\Attribute[] $attributes
    */
-  public function setAttributes($attributes) {
+  public function setAttributes(array $attributes): self {
     $this->attributes = $attributes;
     return $this;
   }
@@ -46,28 +46,28 @@ class Service implements SerializableDataInterface {
   /**
    * @return string
    */
-  public function getName() {
+  public function getName(): ?string {
     return $this->name;
   }
 
   /**
    * @return string
    */
-  public function getIdentifier() {
+  public function getIdentifier(): ?string {
     return $this->identifier;
   }
 
   /**
    * @return \zaporylie\Cargonizer\Data\Attribute[]
    */
-  public function getAttributes() {
+  public function getAttributes(): array {
     return $this->attributes;
   }
 
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $service = new Service();
     $service->setIdentifier((string) $xml->identifier);
     $service->setName((string) $xml->name);
@@ -84,7 +84,7 @@ class Service implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     return $xml;
   }
 }

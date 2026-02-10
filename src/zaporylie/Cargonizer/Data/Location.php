@@ -12,55 +12,55 @@ class Location implements SerializableDataInterface {
   /**
    * @var int
    */
-  protected $id;
+  protected ?int $id = null;
 
   /**
    * @var string
    */
-  protected $postcode;
+  protected ?string $postcode = null;
 
   /**
    * @var string
    */
-  protected $city;
+  protected ?string $city = null;
 
   /**
    * @var string
    */
-  protected $country;
+  protected ?string $country = null;
 
   /**
    * @return string
    */
-  public function getCity() {
+  public function getCity(): ?string {
     return $this->city;
   }
 
   /**
    * @return string
    */
-  public function getCountry() {
+  public function getCountry(): ?string {
     return $this->country;
   }
 
   /**
    * @return string
    */
-  public function getPostcode() {
+  public function getPostcode(): ?string {
     return $this->postcode;
   }
 
   /**
    * @return int
    */
-  public function getId() {
+  public function getId(): ?int {
     return $this->id;
   }
 
   /**
    * @param string $city
    */
-  public function setCity($city) {
+  public function setCity(?string $city): self {
     $this->city = $city;
     return $this;
   }
@@ -68,7 +68,7 @@ class Location implements SerializableDataInterface {
   /**
    * @param string $country
    */
-  public function setCountry($country) {
+  public function setCountry(?string $country): self {
     $this->country = $country;
     return $this;
   }
@@ -76,7 +76,7 @@ class Location implements SerializableDataInterface {
   /**
    * @param string $postcode
    */
-  public function setPostcode($postcode) {
+  public function setPostcode(?string $postcode): self {
     $this->postcode = $postcode;
     return $this;
   }
@@ -84,7 +84,7 @@ class Location implements SerializableDataInterface {
   /**
    * @param int $id
    */
-  public function setId($id) {
+  public function setId(?int $id): self {
     $this->id = $id;
     return $this;
   }
@@ -92,7 +92,7 @@ class Location implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $location = new Location();
     $location->setCity((string) $xml->city);
     $location->setPostcode((string) $xml->postcode);
@@ -104,12 +104,12 @@ class Location implements SerializableDataInterface {
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml) {
+  public function toXML(\SimpleXMLElement $xml): \SimpleXMLElement {
     $location = $xml->addChild('location');
-    $location->addChild('id', $this->getId());
-    $location->addChild('postcode', $this->getPostcode());
-    $location->addChild('city', $this->getCity());
-    $location->addChild('country', $this->getCountry());
+    $location->addChild('id', (string)($this->getId() ?? ''));
+    $location->addChild('postcode', $this->getPostcode() ?? '');
+    $location->addChild('city', $this->getCity() ?? '');
+    $location->addChild('country', $this->getCountry() ?? '');
     return $xml;
   }
 }

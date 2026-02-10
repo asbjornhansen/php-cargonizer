@@ -16,7 +16,7 @@ class ConsignmentsResponse extends ObjectsWrapper implements SerializableDataInt
    *
    * @return self
    */
-  public function addItem(ConsignmentResponse $item) {
+  public function addItem(ConsignmentResponse $item): self {
     $this->array[] = $item;
     return $this;
   }
@@ -24,7 +24,7 @@ class ConsignmentsResponse extends ObjectsWrapper implements SerializableDataInt
   /**
    * {@inheritdoc}
    */
-  public static function fromXML(\SimpleXMLElement $xml) {
+  public static function fromXML(\SimpleXMLElement $xml): self {
     $consignments = new ConsignmentsResponse();
     /** @var \SimpleXMLElement $consignment */
     foreach ($xml as $consignment) {
@@ -36,8 +36,8 @@ class ConsignmentsResponse extends ObjectsWrapper implements SerializableDataInt
   /**
    * {@inheritdoc}
    */
-  public function toXML(\SimpleXMLElement $xml = null) {
-    if ($xml === NULL) {
+  public function toXML(?\SimpleXMLElement $xml = null): \SimpleXMLElement {
+    if ($xml === null) {
       $xml = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"UTF-8\"?><consignments></consignments>");
     }
     foreach ($this as $consignment) {
