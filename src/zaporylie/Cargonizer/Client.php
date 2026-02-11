@@ -50,10 +50,6 @@ abstract class Client
      */
     public function getResource(): string
     {
-        if ($this->resource === null) {
-            throw new \Exception('Undefined resource');
-        }
-
         return $this->resource;
     }
 
@@ -62,10 +58,6 @@ abstract class Client
      */
     public function getMetod(): string
     {
-        if ($this->method === null) {
-            throw new \Exception('Undefined method');
-        }
-
         return $this->method;
     }
 
