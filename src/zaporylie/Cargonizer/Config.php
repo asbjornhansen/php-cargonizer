@@ -13,11 +13,11 @@ use Psr\Http\Client\ClientInterface;
  */
 class Config
 {
-    const SANDBOX = 'https://sandbox.cargonizer.no';
+    const string SANDBOX = 'https://sandbox.cargonizer.no';
 
-    const PRODUCTION = 'https://cargonizer.no';
+    const string PRODUCTION = 'https://cargonizer.no';
 
-    protected static $config = [
+    protected static array $config = [
         'endpoint' => self::SANDBOX,
         'sender' => null,
         'secret' => null,
