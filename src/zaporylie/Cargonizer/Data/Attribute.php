@@ -62,6 +62,13 @@ class Attribute implements SerializableDataInterface
         return $this;
     }
 
+    public function addValue(string $value): self
+    {
+        $this->values[] = $value;
+
+        return $this;
+    }
+
     public function setValues(?array $values): self
     {
         $this->values = $values;
@@ -109,6 +116,11 @@ class Attribute implements SerializableDataInterface
         $attribute->setRequired((string) $xml->required === 'true');
         $attribute->setMin((int) $xml->min);
         $attribute->setMax((int) $xml->max);
+        if ($xml->values->count()) {
+            foreach ($xml->values->value as $value) {
+                $attribute->addValue((string) $value);
+            }
+        }
 
         return $attribute;
     }
